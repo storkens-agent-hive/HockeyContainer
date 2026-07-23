@@ -9,6 +9,7 @@ on:
 env:
   QUAY_REPO: quay.io/eksta_mannen/hockeypong
   REGISTRY_QUAY: quay.io
+  IMAGE_NAME: hockeypong
 
 jobs:
   build-and-push:
