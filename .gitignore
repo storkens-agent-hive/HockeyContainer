@@ -1,0 +1,17 @@
+# HTML file (required for build but not tracked in repo)
+hockey_gamepad_realrink_propertiming.html
+
+# Build artifacts
+*.tar
+*.log
+
+# Podman
+.podman/
+
+# Editor files
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
