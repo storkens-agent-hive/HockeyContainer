@@ -7,9 +7,7 @@ on:
     branches: [ master, main ]
 
 env:
-  QUAY_REPO: quay.io/eksta_mannen/hockeypong
-  REGISTRY_QUAY: quay.io
-  IMAGE_NAME: hockeypong
+  IMAGE: quay.io/eksta_mannen/hockeypong
 
 jobs:
   build-and-push:
@@ -24,7 +22,7 @@ jobs:
       - name: Log in to Quay.io
         uses: redhat-actions/podman-login@v1.7
         with:
-          registry: ${{ env.REGISTRY_QUAY }}
+          registry: quay.io
           username: ${{ secrets.QUAY_USERNAME }}
           password: ${{ secrets.QUAY_PASSWORD }}
 
@@ -32,16 +30,15 @@ jobs:
         id: build-image
         uses: redhat-actions/buildah-build@v2.13
         with:
-          image: ${{ env.IMAGE_NAME }}
+          image: ${{ env.IMAGE }}
           tags: latest ${{ github.sha }}
-          context: ./images/Backend
-          containerfiles: ./images/Backend/Containerfile
+          context: .
+          containerfiles: ./Containerfile
 
       - name: Push container image
         uses: redhat-actions/push-to-registry@v2.8
         with:
-          image: ${{ env.IMAGE_NAME }}
+          image: ${{ env.IMAGE }}
           tags: latest ${{ github.sha }}
-          registry: ${{ env.REGISTRY_QUAY }}
           username: ${{ secrets.QUAY_USERNAME }}
           password: ${{ secrets.QUAY_PASSWORD }}
