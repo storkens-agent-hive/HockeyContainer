@@ -21,9 +21,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Podman
-        uses: containers/podman-action@v1
-
       - name: Log in to GitHub Container Registry
         uses: redhat-actions/podman-login@v1.7
         with:
