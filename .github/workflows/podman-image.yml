@@ -1,4 +1,4 @@
-name: Build and Push with Podman to Quay.io
+name: Build and Push to GitHub Container Registry
 
 on:
   push:
@@ -7,11 +7,16 @@ on:
     branches: [ master, main ]
 
 env:
-  IMAGE: quay.io/eksta_mannen/hockeypong
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   build-and-push:
     runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      packages: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -19,18 +24,18 @@ jobs:
       - name: Set up Podman
         uses: containers/podman-action@v1
 
-      - name: Log in to Quay.io
+      - name: Log in to GitHub Container Registry
         uses: redhat-actions/podman-login@v1.7
         with:
-          registry: quay.io
-          username: ${{ secrets.QUAY_USERNAME }}
-          password: ${{ secrets.QUAY_PASSWORD }}
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build container image
         id: build-image
         uses: redhat-actions/buildah-build@v2.13
         with:
-          image: ${{ env.IMAGE }}
+          image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: latest ${{ github.sha }}
           context: .
           containerfiles: ./Containerfile
@@ -38,7 +43,8 @@ jobs:
       - name: Push container image
         uses: redhat-actions/push-to-registry@v2.8
         with:
-          image: ${{ env.IMAGE }}
+          image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: latest ${{ github.sha }}
-          username: ${{ secrets.QUAY_USERNAME }}
-          password: ${{ secrets.QUAY_PASSWORD }}
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
