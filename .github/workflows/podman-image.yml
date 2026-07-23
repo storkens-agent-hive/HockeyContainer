@@ -8,7 +8,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: hockeypong
+  IMAGE_NAME: storkens-agent-hive/hockeypong
 
 jobs:
   build-and-push:
