@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  hockeypong:
+    image: ghcr.io/storkens-agent-hive/hockeypong:latest
+    container_name: hockeypong
+    ports:
+      - "0.0.0.0:18081:80"
+    labels:
+      - "io.containers.autoupdate=image"  # Enables auto-update for this container
+    restart: unless-stopped
