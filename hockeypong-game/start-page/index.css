@@ -1,0 +1,39 @@
+/* styles.css */
+
+body {
+    background-image: url('Hockey_Pong.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: top;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+}
+
+H1 {
+    color: #333;
+    text-align: center;
+}
+
+id.background-music {
+    margin-top: 240px;
+}
+
+a {
+    font-size: large;
+    text-decoration: none;
+    background-color: #3f4142;
+    color: #be4d4d;
+    padding: 20px 40px;
+    border-radius: 10px;
+    text-align: center;
+    display: inline-block;
+    margin-top: 340px;
+    transition: background-color 0.3s ease;
+    box-shadow: #f0f0f0;
+}
+
+a:hover {
+    font-size: x-large;
