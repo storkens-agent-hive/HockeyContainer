@@ -1,8 +1,19 @@
-document.addEventListener('keydown', function(event) {
-  if (event.code === 'Space') {
-    const audio = document.getElementById('background-music');
-    audio.play()
-      .then(() => console.log("Audio started!"))
-      .catch(error => console.error("Audio playback failed:", error));
+document.addEventListener('DOMContentLoaded', function () {
+  const banner = document.getElementById('start-banner');
+  const audio = document.getElementById('background-music');
+
+  if (!banner || !audio) {
+    return;
   }
-}, { once: true });
+
+  banner.addEventListener('click', function () {
+    audio.play()
+      .then(() => {
+        console.log('Audio started!');
+        banner.classList.add('hidden');
+      })
+      .catch(error => {
+        console.error('Audio playback failed:', error);
+      });
+  }, { once: true });
+});
